@@ -1,0 +1,28 @@
+.InputTrackerName{
+   background-color: rgb(255, 255, 255);
+   margin: auto;
+   width: 90%;
+   height: max-content;
+   border: 1px solid black;
+   border-radius: 20px;
+   display: flex;
+   justify-content: space-between;
+   margin-top: 50px;
+}
+input{
+   border: none;
+   outline: none;
+   padding-left: 10px;
+   border-radius: 20px;
+   width: 85%;
+}
+.buttonCreate {
+   font-size: 17px;
+   width: 35px;
+   margin: 2px;
+   padding-left: 8px;
+   border: none;
+   height: 35px;
+   border-radius: 20px;
+   background:rgb(14, 177, 87);
+}
