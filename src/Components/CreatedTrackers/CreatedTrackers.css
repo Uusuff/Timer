@@ -5,15 +5,28 @@
    margin-top: 10px;
    border-top: 2px solid rgb(165, 165, 165);
    border-bottom: 2px solid rgb(165, 165, 165);
-   height: 35px;
+   min-height: 35px;
    display: flex;
    justify-content: space-between;
    align-items: center;
 }
+.trackers:hover{
+   background-color:rgb(231, 230, 230);
+}
+.trackers:hover span{
+   color: rgb(38, 192, 7);
+}
+.trackers:hover .NameTracker{
+   color: rgb(38, 192, 7);
+}
+
 .NameTracker{
    font-size: 15px;
    color: black;
    padding-left: 10px;
+   word-break: break-all;
+   overflow-y: auto;
+   margin-right: 5px;
 }
 span{
    font-size: 15px;
