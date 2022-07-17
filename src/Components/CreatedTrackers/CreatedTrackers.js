@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import './CreatedTrackers.css';
 
-
 function CreatedTrackers(props) {
    const [time, setTime] = useState({ms:0, s:0, m:0, h:0});
-   const [status, setStatus] = useState(0);
+   const [status, setStatus] = useState(false);
    const [interv, setInterv] = useState();
 
    let updatedMs = time.ms;
@@ -15,7 +14,7 @@ function CreatedTrackers(props) {
    function start() {
       run();
       setInterv(setInterval(run, 10));
-      setStatus(1)
+      setStatus(true)
    };
 
    function run() {
@@ -37,13 +36,13 @@ function CreatedTrackers(props) {
 
    function pause() {
       clearInterval(interv);
-      setStatus(0)
+      setStatus(false)
    };
   
    return (
     <div className="trackers">
       <div className='NameTracker'>
-         {(props.name == '')? "No name" : props.name}
+         {(props.name === '')? "No name" : props.name}
       </div>
       <div className='timer'>
          <span>
@@ -55,13 +54,13 @@ function CreatedTrackers(props) {
             {(time.s >= 10)? time.s : "0" + time.s}: 
             {(time.ms >= 10)? time.ms : "0" + time.ms} 
          </span>
-         {(status === 0)?   
+         {(status === false)?   
             <button 
                className='buttonStart'
                onClick={start}>
             </button> : ""
          }
-         {(status === 1)?    
+         {(status === true)?    
             <button 
                className='buttonPause'
                onClick={pause}>

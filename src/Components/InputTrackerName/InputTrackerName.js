@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import './InputTrackerName.css';
-import moment from 'moment'
+import { useDispatch } from 'react-redux/es/exports';
+import { addTracker } from '../../Redux/trackersSlice';
+import moment from 'moment';
 
 function InputTrackerName(props) {
    const [name, setName] = useState('');
-
+   
+   const dispatch = useDispatch();
+     
    const createTracker = () => {
-      props.setTrackers([{
-          id: moment().valueOf().toString(),
-          trackName: name,
-      }, ...props.trackers])
+      dispatch(addTracker({
+         id: moment().valueOf().toString(),
+         trackName: name
+      }))
       setName('')
-   }
+      props.updateTrackList();
+   };
 
   return (
     <div className="InputTrackerName">
@@ -26,6 +31,6 @@ function InputTrackerName(props) {
       </button>
     </div>
   );
-}
+};
 
 export default InputTrackerName;

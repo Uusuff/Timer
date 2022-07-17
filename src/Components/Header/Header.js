@@ -7,6 +7,6 @@ function Header() {
       <h1 className='h1'>Tracker</h1>
     </div>
   );
-}
+};
 
 export default Header;

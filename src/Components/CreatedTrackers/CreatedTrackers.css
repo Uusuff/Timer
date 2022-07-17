@@ -10,12 +10,15 @@
    justify-content: space-between;
    align-items: center;
 }
+
 .trackers:hover{
    background-color:rgb(231, 230, 230);
 }
+
 .trackers:hover span{
    color: rgb(38, 192, 7);
 }
+
 .trackers:hover .NameTracker{
    color: rgb(38, 192, 7);
 }
