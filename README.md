@@ -1,4 +1,4 @@
-# Time tracer app
+# Time tracker app
 
 ## Install the required modules
 ### `npm install`
