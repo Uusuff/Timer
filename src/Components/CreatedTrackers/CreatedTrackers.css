@@ -1,6 +1,7 @@
 .trackers {
    background-color: rgb(255, 255, 255);
    width: 90%;
+   height: 35px;
    margin: auto;
    margin-top: 10px;
    border-top: 2px solid rgb(165, 165, 165);
@@ -9,6 +10,10 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
+   overflow-y: auto;
+}
+.trackersActiv{
+   background-color: rgb(231, 230, 230);
 }
 
 .trackers:hover{
@@ -24,7 +29,8 @@
 }
 
 .NameTracker{
-   font-size: 15px;
+   min-width: 2%;
+   font-size: 14px;
    color: black;
    padding-left: 10px;
    word-break: break-all;
@@ -34,7 +40,12 @@
 span{
    font-size: 15px;
    color: black;
+   padding: 2px;
    padding-right: 10px;
+   
+}
+.activ{
+   color: rgb(38, 192, 7);
 }
 .buttonStart {
    width: 25px;

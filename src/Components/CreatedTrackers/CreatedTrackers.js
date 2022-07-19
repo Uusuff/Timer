@@ -1,75 +1,71 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './CreatedTrackers.css';
+import { useDispatch } from 'react-redux/es/exports';
+import { pause, play, seveTimeAct } from '../../Redux/trackersSlice'
+import classNames from 'classnames';
 
 function CreatedTrackers(props) {
-   const [time, setTime] = useState({ms:0, s:0, m:0, h:0});
-   const [status, setStatus] = useState(false);
    const [interv, setInterv] = useState();
-
-   let updatedMs = time.ms;
-   let updatedS = time.s;
-   let updatedM = time.m;
-   let updatedH = time.h;
-
+   const dispatch = useDispatch();
+   
    function start() {
-      run();
+      dispatch(play(props.id));
       setInterv(setInterval(run, 10));
-      setStatus(true)
    };
 
-   function run() {
-      if(updatedM === 60){
-         updatedH++;
-         updatedM = 0; 
-      }
-      if(updatedS === 60){
-         updatedM++;
-         updatedS = 0; 
-      }
-      if(updatedMs === 100){
-         updatedS++;
-         updatedMs = 0; 
-      }
-      updatedMs++;
-      return setTime({ms:updatedMs, s:updatedS, m:updatedM, h:updatedH})
-   };
-
-   function pause() {
+   function stop() {
       clearInterval(interv);
-      setStatus(false)
+      dispatch(pause({id:props.id, time:props.timeAct}));
+      dispatch(seveTimeAct({id:props.id, time:0}))
    };
+
+   function run(){
+      return dispatch(seveTimeAct(props.id));
+   }
+
+   const msToTime = (num) => {
+      let hours = Math.floor((num % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes = Math.floor((num % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds = Math.floor((num % (1000 * 60)) / 1000)
   
+      const wrapZeros = (num) => (num < 10 ? '0' + num : num)
+
+      return (
+        wrapZeros(hours) + ':' + wrapZeros(minutes) + ':' + wrapZeros(seconds)
+      )
+    }
+
+    useEffect(() => {
+      if(props.isPlay === true){
+         setInterv(setInterval(run, 10));
+      }
+   }, [])
+
    return (
-    <div className="trackers">
-      <div className='NameTracker'>
-         {(props.name === '')? "No name" : props.name}
+    <div  className={props.isPlay === false ? classNames("trackers") : classNames("trackers", "trackersActiv")}>
+      <div className={props.isPlay === false ? classNames("NameTracker") : classNames("NameTracker", "activ")}>
+         {(props.name === '')? 'No name:' + props.id : props.name}
       </div>
       <div className='timer'>
-         <span>
-            {(time.h !== 0)?
-               (time.h >= 10)? time.h : "0" + time.h + ":"
-               : "" 
-            }
-            {(time.m >= 10)? time.m : "0" + time.m}: 
-            {(time.s >= 10)? time.s : "0" + time.s}: 
-            {(time.ms >= 10)? time.ms : "0" + time.ms} 
+         <span className={props.isPlay === false ? "" :  "activ"}>
+            {msToTime(props.timeAct + props.time)}
          </span>
-         {(status === false)?   
-            <button 
-               className='buttonStart'
+         {(props.isPlay === false)?   
+            <button
+               className="buttonStart"
                onClick={start}>
             </button> : ""
          }
-         {(status === true)?    
-            <button 
+         {(props.isPlay === true)?    
+            <button
                className='buttonPause'
-               onClick={pause}>
+               onClick={stop}>
             </button> : ""
          }
             <button
                id={props.id}
                className='buttonReset' 
-               onClick={props.removeTimer}>
+               onClick={props.onRemove}>
             </button>
       </div>
     </div>

@@ -4,18 +4,20 @@ import { useDispatch } from 'react-redux/es/exports';
 import { addTracker } from '../../Redux/trackersSlice';
 import moment from 'moment';
 
-function InputTrackerName(props) {
+function InputTrackerName() {
    const [name, setName] = useState('');
-   
    const dispatch = useDispatch();
      
    const createTracker = () => {
       dispatch(addTracker({
          id: moment().valueOf().toString(),
-         trackName: name
+         trackName: name,
+         timeStart: moment().valueOf(),
+         time: 0,
+         timeAct: 0,
+         isPlay: false
       }))
       setName('')
-      props.updateTrackList();
    };
 
   return (
@@ -25,6 +27,11 @@ function InputTrackerName(props) {
          value={name}
          placeholder='Enter tracker name'
          onChange={(e) => setName(e.target.value)}
+         onKeyPress={(event) => {
+            if (event.key === 'Enter'){
+               createTracker();
+            }
+         }}
       />
       <button className='buttonCreate' onClick={createTracker}>
          ➤
